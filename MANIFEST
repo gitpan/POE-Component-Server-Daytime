@@ -1,0 +1,6 @@
+MANIFEST
+README
+Makefile.PL
+Daytime.pm
+t/1.t
+examples/simple-daytime-server.pl
