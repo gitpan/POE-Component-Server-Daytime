@@ -13,26 +13,26 @@ use strict;
 use Carp;
 use POE;
 use Socket;
-use Date::Format;
+use POSIX;
 use base qw(POE::Component::Server::Echo);
 use vars qw($VERSION);
 
 use constant DATAGRAM_MAXLEN => 1024;
 use constant DEFAULT_PORT => 13;
 
-$VERSION = '1.0';
+$VERSION = '1.01';
 
 sub spawn {
-  my ($package) = shift;
+  my $package = shift;
   croak "$package requires an even number of parameters" if @_ & 1;
 
   my %parms = @_;
 
-  $parms{'Alias'} = 'Qotd-Server' unless ( defined ( $parms{'Alias'} ) and $parms{'Alias'} );
-  $parms{'tcp'} = 1 unless ( defined ( $parms{'tcp'} ) and $parms{'tcp'} == 0 );
-  $parms{'udp'} = 1 unless ( defined ( $parms{'udp'} ) and $parms{'udp'} == 0 );
+  $parms{'Alias'} = 'Qotd-Server' unless defined $parms{'Alias'} and $parms{'Alias'};
+  $parms{'tcp'} = 1 unless defined $parms{'tcp'} and $parms{'tcp'} == 0;
+  $parms{'udp'} = 1 unless defined $parms{'udp'} and $parms{'udp'} == 0;
 
-  my ($self) = bless( { }, $package );
+  my $self = bless { }, $package;
 
   $self->{CONFIG} = \%parms;
 
@@ -61,21 +61,19 @@ sub accept_new_client {
 	FlushedEvent => 'client_flushed',
   );
 
-  $self->{Clients}->{ $wheel->ID() }->{Wheel} = $wheel;
-  $self->{Clients}->{ $wheel->ID() }->{peeraddr} = $peeraddr;
-  $self->{Clients}->{ $wheel->ID() }->{peerport} = $peerport;
-  $wheel->put( time2str("%A, %B %d, %Y %X-%Z", time) );
+  $self->{Clients}->{ $wheel->ID() } = { Wheel => $wheel, peeraddr => $peeraddr, peerport => $peerport };
+  $wheel->put( strftime("%A, %B %d, %Y %X-%Z", localtime) );
 }
 
 sub client_input {
-  my ($kernel,$self,$input,$wheel_id) = @_[KERNEL,OBJECT,ARG0,ARG1];
+  undef;
 }
 
 sub client_flushed {
   my ($kernel,$self,$wheel_id) = @_[KERNEL,OBJECT,ARG0];
-
-  delete ( $self->{Clients}->{ $wheel_id }->{Wheel} );
-  delete ( $self->{Clients}->{ $wheel_id } );
+  delete $self->{Clients}->{ $wheel_id }->{Wheel};
+  delete $self->{Clients}->{ $wheel_id };
+  undef;
 }
 
 sub get_datagram {
@@ -88,6 +86,7 @@ sub get_datagram {
   send( $socket, $output, 0, $remote_address ) == length( $output )
       or warn "Trouble sending response: $!";
 
+  undef;
 }
 
 1;
@@ -99,9 +98,9 @@ POE::Component::Server::Daytime - a POE component implementing a RFC 865 Daytime
 
 =head1 SYNOPSIS
 
-use POE::Component::Server::Daytime;
+ use POE::Component::Server::Daytime;
 
- my ($self) = POE::Component::Server::Daytime->spawn( 
+ my $self = POE::Component::Server::Daytime->spawn( 
 	Alias => 'Daytime-Server',
 	BindAddress => '127.0.0.1',
 	BindPort => 7777,
@@ -119,7 +118,15 @@ L<POE|POE>. It is a class inherited from L<POE::Component::Server::Echo|POE::Com
 
 =item spawn
 
-Takes a number of optional values: "Alias", the kernel alias that this component is to be blessed with; "BindAddress", the address on the local host to bind to, defaults to L<POE::Wheel::SocketFactory|POE::Wheel::SocketFactory> default; "BindPort", the local port that we wish to listen on for requests, defaults to 19 as per RFC, this will require "root" privs on UN*X; "options", should be a hashref, containing the options for the component's session, see L<POE::Session|POE::Session> for more details on what this should contain.
+Takes a number of optional values: 
+
+  "Alias", the kernel alias that this component is to be blessed with; 
+  "BindAddress", the address on the local host to bind to, defaults to 
+                 POE::Wheel::SocketFactory default; 
+  "BindPort", the local port that we wish to listen on for requests, defaults 
+              to 19 as per RFC, this will require "root" privs on UN*X; 
+  "options", should be a hashref, containing the options for the component's session, 
+             see POE::Session for more details on what this should contain.
 
 =back
 
@@ -133,10 +140,14 @@ Chris 'BinGOs' Williams, <chris@bingosnet.co.uk>
 
 =head1 SEE ALSO
 
-L<POE|POE>
-L<POE::Session|POE::Session>
-L<POE::Wheel::SocketFactory|POE::Wheel::SocketFactory>
-L<POE::Component::Server::Echo|POE::Component::Server::Echo>
+L<POE>
+
+L<POE::Session>
+
+L<POE::Wheel::SocketFactory>
+
+L<POE::Component::Server::Echo>
+
 L<http://www.faqs.org/rfcs/rfc867.html>
 
 =cut

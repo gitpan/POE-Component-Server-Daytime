@@ -4,3 +4,4 @@ Makefile.PL
 Daytime.pm
 t/1.t
 examples/simple-daytime-server.pl
+META.yml                                 Module meta-data (added by MakeMaker)

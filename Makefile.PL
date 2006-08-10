@@ -12,7 +12,6 @@ WriteMakefile(
 							  'Carp'   => 0,
 							  'Socket' => 0,
 							  'POE::Component::Server::Echo' => 1.0,
-							  'Date::Format' => 2.22,
 							 },
 			  'VERSION_FROM' => 'Daytime.pm', # finds $VERSION
 			  'dist' => { 'COMPRESS' => 'gzip --best' },
