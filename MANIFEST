@@ -1,7 +1,10 @@
 MANIFEST
 README
 Makefile.PL
-Daytime.pm
+Changes
+lib/POE/Component/Server/Daytime.pm
 t/1.t
+t/2.t
+t/3.t
 examples/simple-daytime-server.pl
 META.yml                                 Module meta-data (added by MakeMaker)
