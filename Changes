@@ -1,6 +1,9 @@
 POE::Component::Server::Echo
 ============================
 
+1.03	Tue Sep 26 12:39:07 BST 2006
+	- Switched to Module::Install
+
 1.02	Sat Sep  9 13:44:03 BST 2006
 	- Rearranged distribution structure.
 	- Added Changes file
