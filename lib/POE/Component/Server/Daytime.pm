@@ -20,7 +20,7 @@ use vars qw($VERSION);
 use constant DATAGRAM_MAXLEN => 1024;
 use constant DEFAULT_PORT => 13;
 
-$VERSION = '1.03';
+$VERSION = '1.04';
 
 sub spawn {
   my $package = shift;
@@ -53,7 +53,7 @@ sub _accept_new_client {
   my ($kernel,$self,$socket,$peeraddr,$peerport,$wheel_id) = @_[KERNEL,OBJECT,ARG0 .. ARG3];
   $peeraddr = inet_ntoa($peeraddr);
 
-  my ($wheel) = POE::Wheel::ReadWrite->new (
+  my $wheel = POE::Wheel::ReadWrite->new (
         Handle => $socket,
         Filter => POE::Filter::Line->new(),
         InputEvent => '_client_input',

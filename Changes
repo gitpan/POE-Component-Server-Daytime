@@ -1,6 +1,9 @@
 POE::Component::Server::Echo
 ============================
 
+1.04	Thu Feb 01 14:45:04 GMT 2007
+	- Makefile.PL now fully Module::Install-ified.
+
 1.03	Tue Sep 26 12:39:07 BST 2006
 	- Switched to Module::Install
 
