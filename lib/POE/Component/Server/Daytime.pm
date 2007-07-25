@@ -20,7 +20,7 @@ use vars qw($VERSION);
 use constant DATAGRAM_MAXLEN => 1024;
 use constant DEFAULT_PORT => 13;
 
-$VERSION = '1.05';
+$VERSION = '1.06';
 
 sub spawn {
   my $package = shift;
@@ -94,7 +94,7 @@ __END__
 
 =head1 NAME
 
-POE::Component::Server::Daytime - a POE component implementing a RFC 865 Daytime server.
+POE::Component::Server::Daytime - A POE component that implements an RFC 865 Daytime server.
 
 =head1 SYNOPSIS
 
