@@ -20,7 +20,7 @@ use vars qw($VERSION);
 use constant DATAGRAM_MAXLEN => 1024;
 use constant DEFAULT_PORT => 13;
 
-$VERSION = '1.07';
+$VERSION = '1.08';
 
 sub spawn {
   my $package = shift;
@@ -82,7 +82,7 @@ sub _get_datagram {
   my $remote_address = recv( $socket, my $message = "", DATAGRAM_MAXLEN, 0 );
     return unless defined $remote_address;
 
-  my $output = time2str("%A, %B %d, %Y %X-%Z", time);
+  my $output = strftime("%A, %B %d, %Y %X-%Z", localtime);
   send( $socket, $output, 0, $remote_address ) == length( $output )
       or warn "Trouble sending response: $!";
 
@@ -94,7 +94,7 @@ __END__
 
 =head1 NAME
 
-POE::Component::Server::Daytime - A POE component that implements an RFC 865 Daytime server.
+POE::Component::Server::Daytime - A POE component that implements an RFC 867 Daytime server.
 
 =head1 SYNOPSIS
 
@@ -110,7 +110,7 @@ POE::Component::Server::Daytime - A POE component that implements an RFC 865 Day
 =head1 DESCRIPTION
 
 POE::Component::Server::Daytime implements a RFC 867 L<http://www.faqs.org/rfcs/rfc867.html> TCP/UDP Daytime server, using
-L<POE|POE>. It is a class inherited from L<POE::Component::Server::Echo|POE::Component::Server::Echo>.
+L<POE>. It is a class inherited from L<POE::Component::Server::Echo>.
 
 =head1 METHODS
 

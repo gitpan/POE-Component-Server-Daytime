@@ -10,5 +10,5 @@ requires 'Carp'   => 0;
 requires 'Socket' => 0;
 requires 'POSIX' => 0;
 requires 'POE' => 0.38;
-requires 'POE::Component::Server::Echo' => 1.3;
+requires 'POE::Component::Server::Echo' => 1.58;
 WriteAll();

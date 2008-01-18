@@ -1,5 +1,5 @@
 --- 
-abstract: A POE component that implements an RFC 865 Daytime server.
+abstract: A POE component that implements an RFC 867 Daytime server.
 author: 
   - Chris Williams <chris@bingosnet.co.uk>
 build_requires: 
@@ -18,7 +18,7 @@ no_index:
 requires: 
   Carp: 0
   POE: 0.38
-  POE::Component::Server::Echo: 1.3
+  POE::Component::Server::Echo: 1.58
   POSIX: 0
   Socket: 0
-version: 1.07
+version: 1.08
