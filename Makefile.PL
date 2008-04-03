@@ -1,4 +1,5 @@
 #use ExtUtils::MakeMaker;
+use strict;
 use inc::Module::Install;
 name 'POE-Component-Server-Daytime';
 license 'perl';
@@ -6,6 +7,8 @@ author 'Chris Williams <chris@bingosnet.co.uk>';
 version_from 'lib/POE/Component/Server/Daytime.pm';
 abstract_from 'lib/POE/Component/Server/Daytime.pm';
 build_requires 'Test::More' => 0.47;
+requires 'warnings::compat' => 0 if $] < 5.006;
+requires 'base' => 0;
 requires 'Carp'   => 0;
 requires 'Socket' => 0;
 requires 'POSIX' => 0;

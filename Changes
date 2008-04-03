@@ -1,6 +1,9 @@
 POE::Component::Server::Echo
 ============================
 
+1.10	Thu Apr  3 12:40:24 BST 2008
+	- Kwalitee fixes.
+
 1.08	Fri Jan 18 09:51:34 GMT 2008
 	- Fixed test script naming
 	- Added tcp and udp tests
