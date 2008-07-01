@@ -1,6 +1,9 @@
 POE::Component::Server::Echo
 ============================
 
+1.12	Tue Jul  1 09:21:51 BST 2008
+	- Added LICENSE information
+
 1.10	Thu Apr  3 12:40:24 BST 2008
 	- Kwalitee fixes.
 

@@ -21,7 +21,7 @@ use vars qw($VERSION);
 use constant DATAGRAM_MAXLEN => 1024;
 use constant DEFAULT_PORT => 13;
 
-$VERSION = '1.10';
+$VERSION = '1.12';
 
 sub spawn {
   my $package = shift;
@@ -138,6 +138,12 @@ Report any bugs through L<http://rt.cpan.org/>.
 =head1 AUTHOR
 
 Chris 'BinGOs' Williams, <chris@bingosnet.co.uk>
+
+=head1 LICENSE
+
+Copyright (C) Chris Williams
+
+This module may be used, modified, and distributed under the same terms as Perl itself. Please see the license that came with your Perl distribution for details.
 
 =head1 SEE ALSO
 
